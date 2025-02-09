@@ -1,4 +1,4 @@
-package simple
+package easy
 
 /*
 给你一个整数数组 nums，将 nums 中的的所有偶数元素移动到数组的前面，后跟所有奇数元素。
