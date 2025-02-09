@@ -1,4 +1,4 @@
-package simple
+package easy
 
 /*
 给你一个字符串 s，最多 可以从中删除一个字符。

@@ -1,4 +1,4 @@
-package simple
+package easy
 
 /*
 给定一个非负整数数组 nums，  nums 中一半整数是 奇数 ，一半整数是 偶数 。
