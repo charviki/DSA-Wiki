@@ -6,27 +6,49 @@ import (
 )
 
 func Test_283_moveZeroes(t *testing.T) {
-	testCases := []struct {
-		name     string
-		input    []int
-		expected []int
+	tests := []struct {
+		name string
+		nums []int
+		want []int
 	}{
-		{"EmptyArray", []int{}, []int{}},
-		{"NoZeroes", []int{1, 2, 3}, []int{1, 2, 3}},
-		{"AllZeroes", []int{0, 0, 0}, []int{0, 0, 0}},
-		{"MixedElements", []int{0, 1, 0, 3, 12}, []int{1, 3, 12, 0, 0}},
-		{"SingleZero", []int{0}, []int{0}},
-		{"SingleNonZero", []int{1}, []int{1}},
-		{"ZeroesAtStart", []int{0, 1, 2, 3}, []int{1, 2, 3, 0}},
-		{"ZeroesInMiddle", []int{1, 0, 2, 0, 3}, []int{1, 2, 3, 0, 0}},
-		{"ZeroesAtEnd", []int{1, 2, 3, 0}, []int{1, 2, 3, 0}},
+		{
+			name: "Example 1",
+			nums: []int{0, 1, 0, 3, 12},
+			want: []int{1, 3, 12, 0, 0},
+		},
+		{
+			name: "Example 2",
+			nums: []int{0},
+			want: []int{0},
+		},
+		{
+			name: "No zeros",
+			nums: []int{1, 2, 3},
+			want: []int{1, 2, 3},
+		},
+		{
+			name: "All zeros",
+			nums: []int{0, 0, 0},
+			want: []int{0, 0, 0},
+		},
+		{
+			name: "Zeros at start",
+			nums: []int{0, 0, 1, 2},
+			want: []int{1, 2, 0, 0},
+		},
+		{
+			name: "Zeros at end",
+			nums: []int{1, 2, 0, 0},
+			want: []int{1, 2, 0, 0},
+		},
 	}
-
-	for _, tc := range testCases {
-		t.Run(tc.name, func(t *testing.T) {
-			_283_moveZeroes(tc.input)
-			if !reflect.DeepEqual(tc.input, tc.expected) {
-				t.Errorf("For input %v, expected %v but got %v", tc.input, tc.expected, tc.input)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+            numsCopy := make([]int, len(tt.nums))
+            copy(numsCopy, tt.nums)
+			_283_moveZeroes(numsCopy)
+			if !reflect.DeepEqual(numsCopy, tt.want) {
+				t.Errorf("moveZeroes() = %v, want %v", numsCopy, tt.want)
 			}
 		})
 	}

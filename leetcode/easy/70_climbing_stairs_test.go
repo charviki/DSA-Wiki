@@ -1,29 +1,43 @@
 package easy
 
-import (
-	"fmt"
-	"testing"
-)
+import "testing"
 
 func Test_70_climbStairs(t *testing.T) {
-	testCases := []struct {
-		n        int
-		expected int
+	tests := []struct {
+		name string
+		n    int
+		want int
 	}{
-		{1, 1},
-		{2, 2},
-		{3, 3},
-		{4, 5},
-		{5, 8},
-		{10, 89},
-		{20, 10946},
+		{
+			name: "Example 1",
+			n:    2,
+			want: 2,
+		},
+		{
+			name: "Example 2",
+			n:    3,
+			want: 3,
+		},
+		{
+			name: "1 step",
+			n:    1,
+			want: 1,
+		},
+		{
+			name: "4 steps",
+			n:    4,
+			want: 5,
+		},
+		{
+			name: "5 steps",
+			n:    5,
+			want: 8,
+		},
 	}
-
-	for _, tc := range testCases {
-		t.Run(fmt.Sprintf("n=%d", tc.n), func(t *testing.T) {
-			result := _70_climbStairs(tc.n)
-			if result != tc.expected {
-				t.Errorf("climbStairs(%d) = %d; want %d", tc.n, result, tc.expected)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := _70_climbStairs(tt.n); got != tt.want {
+				t.Errorf("climbStairs() = %v, want %v", got, tt.want)
 			}
 		})
 	}

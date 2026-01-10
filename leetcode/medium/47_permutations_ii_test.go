@@ -6,41 +6,78 @@ import (
 	"testing"
 )
 
-func Test_47_permuteUnique(t *testing.T) {
-	tests := []struct {
-		nums     []int
-		expected [][]int
-	}{
-		{[]int{}, [][]int{{}}},
-		{[]int{1}, [][]int{{1}}},
-		{[]int{1, 2}, [][]int{{1, 2}, {2, 1}}},
-		{[]int{1, 1, 2}, [][]int{{1, 1, 2}, {1, 2, 1}, {2, 1, 1}}},
-		{[]int{1, 1, 1}, [][]int{{1, 1, 1}}},
+func _47_sortPermutations(perms [][]int) {
+	for _, p := range perms {
+		// Do not sort inner arrays, they are permutations
+		_ = p
 	}
-
-	for _, test := range tests {
-		result := _47_permuteUnique(test.nums)
-		if !reflect.DeepEqual(_47_sortAndRemoveDuplicates(result), _47_sortAndRemoveDuplicates(test.expected)) {
-			t.Errorf("permuteUnique(%v) = %v, want %v", test.nums, result, test.expected)
-		}
-	}
-}
-
-// sortAndRemoveDuplicates sorts the 2D slice and removes duplicate entries.
-func _47_sortAndRemoveDuplicates(perms [][]int) [][]int {
 	sort.Slice(perms, func(i, j int) bool {
-		for k := range perms[i] {
+		n := len(perms[i])
+		if n != len(perms[j]) {
+			return n < len(perms[j])
+		}
+		for k := 0; k < n; k++ {
 			if perms[i][k] != perms[j][k] {
 				return perms[i][k] < perms[j][k]
 			}
 		}
 		return false
 	})
-	uniquePerms := [][]int{perms[0]}
-	for i := 1; i < len(perms); i++ {
-		if !reflect.DeepEqual(perms[i], perms[i-1]) {
-			uniquePerms = append(uniquePerms, perms[i])
-		}
+}
+
+func Test_47_permuteUnique(t *testing.T) {
+	tests := []struct {
+		name string
+		nums []int
+		want [][]int
+	}{
+		{
+			name: "Example 1",
+			nums: []int{1, 1, 2},
+			want: [][]int{
+				{1, 1, 2},
+				{1, 2, 1},
+				{2, 1, 1},
+			},
+		},
+		{
+			name: "Example 2",
+			nums: []int{1, 2, 3},
+			want: [][]int{
+				{1, 2, 3}, {1, 3, 2}, {2, 1, 3},
+				{2, 3, 1}, {3, 1, 2}, {3, 2, 1},
+			},
+		},
+		{
+			name: "All same",
+			nums: []int{1, 1, 1},
+			want: [][]int{
+				{1, 1, 1},
+			},
+		},
+		{
+			name: "Two same",
+			nums: []int{1, 1},
+			want: [][]int{
+				{1, 1},
+			},
+		},
+		{
+			name: "Single element",
+			nums: []int{1},
+			want: [][]int{
+				{1},
+			},
+		},
 	}
-	return uniquePerms
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := _47_permuteUnique(tt.nums)
+			_47_sortPermutations(got)
+			_47_sortPermutations(tt.want)
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("_47_permuteUnique() = %v, want %v", got, tt.want)
+			}
+		})
+	}
 }

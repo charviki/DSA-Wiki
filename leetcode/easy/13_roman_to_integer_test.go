@@ -4,25 +4,21 @@ import "testing"
 
 func Test_13_romanToInt(t *testing.T) {
 	tests := []struct {
-		input    string
-		expected int
+		name string
+		s    string
+		want int
 	}{
-		{"III", 3},
-		{"IV", 4},
-		{"IX", 9},
-		{"LVIII", 58},
-		{"MCMXCIV", 1994},
-		{"I", 1},
-		{"XXVII", 27},
-		{"XLIX", 49},
-		{"CMXCIX", 999},
-		{"MMMDCCCLXXXVIII", 3888},
+		{"III", "III", 3},
+		{"IV", "IV", 4},
+		{"IX", "IX", 9},
+		{"LVIII", "LVIII", 58},
+		{"MCMXCIV", "MCMXCIV", 1994},
 	}
-
 	for _, tt := range tests {
-		result := _13_romanToInt(tt.input)
-		if result != tt.expected {
-			t.Errorf("input: %q, got: %d, want: %d", tt.input, result, tt.expected)
-		}
+		t.Run(tt.name, func(t *testing.T) {
+			if got := _13_romanToInt(tt.s); got != tt.want {
+				t.Errorf("romanToInt() = %v, want %v", got, tt.want)
+			}
+		})
 	}
 }

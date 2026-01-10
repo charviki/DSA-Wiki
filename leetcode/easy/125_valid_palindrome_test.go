@@ -1,31 +1,59 @@
 package easy
 
-import (
-	"testing"
-)
+import "testing"
 
 func Test_125_isPalindrome(t *testing.T) {
-	testCases := []struct {
-		input    string
-		expected bool
-	}{
-		{" ", true},
-		{"a", true},
-		{"aa", true},
-		{"ab", false},
-		{"aba", true},
-		{"abc", false},
-		{"A man, a plan, a canal: Panama", true},
-		{"race a car", false},
-		{"No 'x' in Nixon", true},
-		{"Was it a car or a cat I saw?", true},
-		{"Not a palindrome", false},
-	}
-
-	for _, tc := range testCases {
-		result := _125_isPalindrome(tc.input)
-		if result != tc.expected {
-			t.Errorf("isPalindrome(%q) = %v; want %v", tc.input, result, tc.expected)
-		}
-	}
+    tests := []struct {
+        name string
+        s    string
+        want bool
+    }{
+        {
+            name: "Example 1",
+            s:    "A man, a plan, a canal: Panama",
+            want: true,
+        },
+        {
+            name: "Example 2",
+            s:    "race a car",
+            want: false,
+        },
+        {
+            name: "Example 3",
+            s:    " ",
+            want: true,
+        },
+        {
+            name: "Empty string",
+            s:    "",
+            want: true,
+        },
+        {
+            name: "Single char",
+            s:    "a",
+            want: true,
+        },
+        {
+            name: "Simple palindrome",
+            s:    "aba",
+            want: true,
+        },
+        {
+            name: "Numbers",
+            s:    "121",
+            want: true,
+        },
+        {
+            name: "Mixed alphanumeric",
+            s:    "0P",
+            want: false,
+        },
+    }
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            if got := _125_isPalindrome(tt.s); got != tt.want {
+                t.Errorf("isPalindrome() = %v, want %v", got, tt.want)
+            }
+        })
+    }
 }

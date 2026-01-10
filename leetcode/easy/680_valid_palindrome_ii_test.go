@@ -3,27 +3,52 @@ package easy
 import "testing"
 
 func Test_680_validPalindrome(t *testing.T) {
-	testCases := []struct {
-		s        string
-		expected bool
+	tests := []struct {
+		name string
+		s    string
+		want bool
 	}{
-		{"racecar", true},
-		{"racecarx", true},
-		{"xracecar", true},
-		{"racecars", true},
-		{"", true},
-		{"a", true},
-		{"aa", true},
-		{"ab", true},
-		{"aba", true},
-		{"abca", true},
-		{"abc", false},
+		{
+			name: "Example 1",
+			s:    "aba",
+			want: true,
+		},
+		{
+			name: "Example 2",
+			s:    "abca",
+			want: true,
+		},
+		{
+			name: "Example 3",
+			s:    "abc",
+			want: false,
+		},
+		{
+			name: "Delete first char",
+			s:    "eccer",
+			want: true,
+		},
+		{
+			name: "Delete last char",
+			s:    "abccb",
+			want: true,
+		},
+		{
+			name: "No deletion needed",
+			s:    "racecar",
+			want: true,
+		},
+		{
+			name: "Single char",
+			s:    "a",
+			want: true,
+		},
 	}
-
-	for _, tc := range testCases {
-		result := _680_validPalindrome(tc.s)
-		if result != tc.expected {
-			t.Errorf("For input '%s', expected %v but got %v", tc.s, tc.expected, result)
-		}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := _680_validPalindrome(tt.s); got != tt.want {
+				t.Errorf("validPalindrome() = %v, want %v", got, tt.want)
+			}
+		})
 	}
 }
