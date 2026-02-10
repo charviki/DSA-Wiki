@@ -66,7 +66,7 @@ func _338_countBits2(n int) []int {
 func _338_countBits3(n int) []int {
 	bits := make([]int, n+1)
 	for i := 1; i <= n; i++ {
-		bits[i] = i%2 + bits[i/2]
+		bits[i] = i%2 + bits[i>>1]
 	}
 	return bits
 }
